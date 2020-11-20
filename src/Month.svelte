@@ -3,8 +3,9 @@
     import Day from './Day.svelte';
     import { Col, Row, Button } from 'sveltestrap';
 
-    export let currentMonth = 9;
-    export let currentYear = 2020;
+    let today = new Date();
+    export let currentMonth = today.getMonth();
+    export let currentYear = today.getFullYear();
     let weeksOfMonth = [];
     let firstOfMonth;
 
@@ -24,12 +25,11 @@
     }
 
     let isDayActive = (day) => {
-        console.log(day)
         console.log(currentMonth)
         let dayMonth = day.getMonth();
-        console.log(dayMonth)
         return +dayMonth === +currentMonth;
     }
+
 
     let getNextMonth = () => {
         currentYear = currentMonth === 11 ? currentYear + 1 : currentYear;
@@ -54,28 +54,44 @@
         firstOfMonth = firstOfMonth.toLocaleString('default', {month: 'long'});
     }
     )
-
 </script>
+
+
 <Row class="justify-content-center">
-    <Col xs="1">
-        <Button on:click={getPreviousMonth}>Previous Month</Button>
+    <Col xs="3">
+        <Button on:click={getPreviousMonth}>⬅</Button>
     </Col>
-    <Col xs="10">
-        <h1>{firstOfMonth}</h1>
+    <Col xs="6">
+        <h2>{firstOfMonth} {currentYear}</h2>
     </Col>
-    <Col xs="1">
-        <Button on:click={getNextMonth}>Next Month</Button>
+    <Col xs="3">
+        <Button on:click={getNextMonth}>➡</Button>
     </Col>
 </Row>
-<Col>
-    {#each weeksOfMonth as daysOfWeek}
-        <Row>
-            {#each daysOfWeek as day}
-                <Col>
-                    <Day day="{day.getDate()}" fade="{isDayActive(day)}"/>
-                </Col>
-            {/each}
-        </Row>
-    {/each}
-</Col>
 
+<Row class="pb-3">
+    <Col><h3>S</h3></Col>
+    <Col><h3>M</h3></Col>
+    <Col><h3>T</h3></Col>
+    <Col><h3>W</h3></Col>
+    <Col><h3>T</h3></Col>
+    <Col><h3>F</h3></Col>
+    <Col><h3>S</h3></Col>
+</Row>
+
+{#each weeksOfMonth as daysOfWeek}
+	<Row class="flex">
+	{#each daysOfWeek as day}
+        <Day day="{day}" fade="{isDayActive(day)}" class="day"/>
+    {/each}
+	</Row>
+{/each}
+
+<style>
+    h2 {
+        color: teal;
+    }
+    .flex {
+        display: flex;
+    }
+</style>

@@ -1,20 +1,16 @@
 <script>
 	import Month from './Month.svelte';
-	import { Col } from 'sveltestrap';
-
 </script>
 
 <main>
-    <Col>
-        <Month />
-    </Col>
+    <Month />
 </main>
 
 <style>
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
+		max-width: 99%;
 		margin: 0 auto;
 	}
 
