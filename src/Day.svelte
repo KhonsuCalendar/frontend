@@ -12,7 +12,7 @@
 
     //TODO: implement this function and make sure it passes phase down to Day component
     let checkPhase = async(date) => {
-        const URL = "http://khonsu.aviananalyst.tk/day/?date="
+        const URL = "https://khonsu.aviananalyst.tk/day/?date="
         let parent_response = await fetch(URL + date.format("YYYY-MM-DD[T00:00:00]"))
             .then(response => response.json())
             .then(data => phase = data)
